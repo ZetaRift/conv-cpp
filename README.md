@@ -1,4 +1,4 @@
 conv-cpp
 ========
 
-GUI unit converter
+GUI unit converter using the Fast Light Toolkit (FLTK)
