@@ -17,7 +17,7 @@
 
 /*
 
-Main library, must include the following parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
+Main executable, must include the following parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
 
 */
 
