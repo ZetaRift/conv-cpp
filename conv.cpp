@@ -19,6 +19,8 @@
 
 Main executable, must include the following parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
 
+Might make a GTK version of the program.
+
 */
 
 
