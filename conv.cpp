@@ -45,7 +45,7 @@ Fl_Button *okbutton;
 
 using namespace std;
  
-void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer value to conf.dat then exits
+void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer values to a 128 byte binary file and then exits.
 	std::fstream fd;
 	data config;
 	std::memset(config.header, '\0', 32);
@@ -62,7 +62,7 @@ void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer 
 
 }
 
-void sigquit(int sig){  // Saves the last used conversion choice integer value to conf.dat then exits
+void sigquit(int sig){
 	printf("\n");
 	printf("Caught signal %i, saving conf..\n", sig);
 	std::fstream fd;
