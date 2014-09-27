@@ -17,9 +17,7 @@
 
 /*
 
-Main executable, must include the following parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
-
-Might make a GTK version of the program.
+Main library, must include the following parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
 
 */
 
@@ -45,7 +43,7 @@ Fl_Button *okbutton;
 
 using namespace std;
  
-void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer values to a 128 byte binary file and then exits.
+void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer value to conf.dat then exits
 	std::fstream fd;
 	data config;
 	std::memset(config.header, '\0', 32);
@@ -62,7 +60,7 @@ void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer 
 
 }
 
-void sigquit(int sig){
+void sigquit(int sig){  // Saves the last used conversion choice integer value to conf.dat then exits
 	printf("\n");
 	printf("Caught signal %i, saving conf..\n", sig);
 	std::fstream fd;
@@ -188,11 +186,9 @@ void tempconv(Fl_Widget*, void*){
  }
 }
 
-
-
-void temprun() {
+int main() {
   signal(SIGINT, sigquit);  //Save when Ctrl-C is pressed
-  signal(SIGTERM, sigquit); //Save when SIGTERM is sent to the process
+  signal(SIGTERM, sigquit);
   window2 = new Fl_Window(310,190, "Temperature converter");
   window2->callback(&quit); // Will save conf and exit when you close the window, removed the exit button.
   convchoicein = new Fl_Choice(80,30,200,20, "From");  // Conversion choices, the value of which choice is selected is an integer, for example: "C to F" is 0, "F to C" is 1, and so on..
@@ -217,33 +213,4 @@ void temprun() {
   window2->show();
   read_conf();
   Fl::run();
-}
-
-void selconv(Fl_Widget*, void*){
- window1->hide();
-
- if (gchoice->value() == 0) {
-  temprun();
- }
- else if (gchoice->value() == 1) {
-  exit(0);
- }
-}
-
-int main(int argc, char **argv){
-  window1 = new Fl_Window(220,110, "Select");
-  window1->callback(&quit);
-  okbutton = new Fl_Button(90,70,30,20, "Ok");
-  okbutton->type(FL_NORMAL_BUTTON);
-  gchoice = new Fl_Choice(10,30,200,20);
-  Fl_Menu_Item opts[] = {
-   {"Temperature Converter"},
-   {"NaN"},
-   {0}};
-  gchoice->menu(opts);
-  okbutton->callback(&selconv);
-  window1->end();
-  window1->show(argc, argv);
-  return Fl::run();
-
 }
