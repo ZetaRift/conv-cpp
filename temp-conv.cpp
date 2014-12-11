@@ -17,7 +17,7 @@
 
 /*
 
-This requires the FLTK headers
+This requires the FLTK headers, along with these parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
 
 */
 
@@ -188,7 +188,7 @@ void tempconv(Fl_Widget*, void*){
 
 int main() {
   signal(SIGINT, sigquit);  //Save when Ctrl-C is pressed
-  signal(SIGTERM, sigquit);
+  signal(SIGTERM, sigquit); //Save when signal 15 happens
   window2 = new Fl_Window(310,190, "Temperature converter");
   window2->callback(&quit); // Will save conf and exit when you close the window, removed the exit button.
   convchoicein = new Fl_Choice(80,30,200,20, "From");  // Conversion choices, the value of which choice is selected is an integer, for example: "C to F" is 0, "F to C" is 1, and so on..
