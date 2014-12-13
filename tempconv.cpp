@@ -23,13 +23,6 @@ This requires the FLTK headers, along with these parameters for compiling: -s $(
 
 
 
-struct data{
-	char header[32];
-	char text[64];
-	int posin;
-        int posout;
-
-};
 
 Fl_Choice *convchoicein;
 Fl_Choice *convchoiceout;
@@ -43,37 +36,15 @@ Fl_Button *okbutton;
 
 using namespace std;
  
-void quit(Fl_Widget*, void*){  // Saves the last used conversion choice integer value to conf.dat then exits
-	std::fstream fd;
-	data config;
-	std::memset(config.header, '\0', 32);
-	std::memset(config.text, '\0', 64);
-	std::strcpy(config.header, HEADER);
-	std::strcpy(config.text, TEXT);
-	fd.open("conf.dat", std::ios::out | std::ios::binary);
-        config.posin = convchoicein->value();
-        config.posout = convchoiceout->value();
-        fd.write((char*)&config, 128);
-        fd.close();
+void quit(Fl_Widget*, void*){ 
 	printf("Exited.\n");
 	exit(0);
 
 }
 
-void sigquit(int sig){  // Saves the last used conversion choice integer value to conf.dat then exits
+void sigquit(int sig){  // Clean exit on catching a signal
 	printf("\n");
-	printf("Caught signal %i, saving conf..\n", sig);
-	std::fstream fd;
-	data config;
-	std::memset(config.header, '\0', 32);
-	std::memset(config.text, '\0', 64);
-	std::strcpy(config.header, HEADER);
-	std::strcpy(config.text, TEXT);
-	fd.open("conf.dat", std::ios::out | std::ios::binary);
-        config.posin = convchoicein->value();
-        config.posout = convchoiceout->value();
-        fd.write((char*)&config, 128);
-        fd.close();
+	printf("Caught signal %i\n", sig);
 	printf("Exited.\n");
 	exit(0);
 
