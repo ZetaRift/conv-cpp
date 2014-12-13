@@ -50,23 +50,6 @@ void sigquit(int sig){  // Clean exit on catching a signal
 
 }
 
-void read_conf(){
-	std::fstream fd;
-	data config;
-	printf("checking if conf.dat exists...");
-	fd.open("conf.dat", std::ios::in | std::ios::binary);
-	if (fd == NULL) {
-	 puts("no");
-	}
-	else {
-	 puts("OK");
-	 fd.read((char*)&config, 128);
-	 convchoicein->value(config.posin);
-	 convchoiceout->value(config.posout);
-	 fd.close();
-	}
-}
-
 void tempconv(Fl_Widget*, void*){
 
  char cstr[32];
@@ -182,6 +165,5 @@ int main() {
   convbutton->callback(&tempconv);
   window2->end();
   window2->show();
-  read_conf();
   Fl::run();
 }
