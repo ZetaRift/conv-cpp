@@ -13,7 +13,6 @@
 
 
 /*
-
 This program has the exact same behavior as the temperature conversion program, the only difference is the conversion formula.
 
 Main library, must include the following parameters for compiling: -s $(fltk-config --cxxflags --ldflags)
